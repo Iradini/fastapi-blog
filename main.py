@@ -12,14 +12,14 @@ templates = Jinja2Templates(directory="templates")
 posts: list[dict] = [
     {
         "id": 1,
-        "autor": "Maria Iradini",
+        "author": "Maria Iradini",
         "title": "FastAPI is awesomme",
         "content": "This framework is really easy to use and super fast.",
         "date_posted": "April 20, 2026",
     },
     {
             "id": 2,
-            "autor": "Jane Doe",
+            "author": "Jane Doe",
             "title": "Python is great for web development",
             "content": "Python is a great language for web development, and FastAPI makes it even better.",
             "date_posted": "April 21, 2026",
@@ -31,6 +31,21 @@ posts: list[dict] = [
 @app.get("/posts", include_in_schema=False, name="posts")
 def home(request: Request):
     return templates.TemplateResponse(request, "home.html", {"posts": posts, "home": home})
+
+
+@app.get("/posts/{post_id}", include_in_schema=False)
+def get_post(request: Request, post_id: int):
+    for post in posts:
+        if post.get("id") == post_id:
+                title = post["title"][:50]
+                author = post["author"]
+                return templates.TemplateResponse(
+                     request, 
+                     "post.html", 
+                     {"post": post, "title": title, "author": author},
+                     )
+        
+    raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Post not found")
 
 
 @app.get("/api/posts")
