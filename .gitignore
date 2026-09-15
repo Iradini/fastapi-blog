@@ -7,8 +7,11 @@ wheels/
 *.egg-info
 
 # Database
-blog.db
+*.sqlite3
+*.db
 
+## dotenv ##
+.env
 
 # Virtual environments
 .venv

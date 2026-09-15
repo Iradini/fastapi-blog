@@ -11,6 +11,9 @@ dependencies = [
     "aiosqlite>=0.22.1",
     "fastapi[standard]>=0.128.8",
     "greenlet>=3.2.5",
+    "pwdlib[argon2]>=0.2.1",
+    "pydantic-settings>=2.11.0",
+    "pyjwt>=2.14.0",
     "sqlalchemy>=2.0.52",
 ]
 
