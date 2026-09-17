@@ -254,7 +254,7 @@
     </script>
     <!-- Auth State Management  -->
     <script type="module">
-      import { getCurrentUser } from '/static/js/auth.js';
+      import { getCurrentUser, logout } from '/static/js/auth.js';
 
       async function updateAuthUI() {
         const user = await getCurrentUser();
@@ -275,6 +275,9 @@
       }
       
       updateAuthUI();
+
+      // Logout handler (nav button, present on every page)
+      document.getElementById('logoutBtn').addEventListener('click', logout);
     </script>
     <!-- Create Post Form Handler -->
     <script type="module">
