@@ -1,24 +1,23 @@
-from typing import Annotated
 from contextlib import asynccontextmanager
-
+from typing import Annotated
 
 from fastapi import Depends, FastAPI, HTTPException, Request, status
 from fastapi.exception_handlers import (
     http_exception_handler,
     request_validation_exception_handler,
-) 
-from sqlalchemy import func, select
-from sqlalchemy.orm import selectinload
+)
+from fastapi.exceptions import RequestValidationError
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
+from sqlalchemy import func, select
+from sqlalchemy.orm import selectinload
 from sqlalchemy.ext.asyncio import AsyncSession
-from fastapi.exceptions import RequestValidationError
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
 import models
 from config import settings
-from routers import posts, users
 from database import Base, engine, get_db
+from routers import posts, users
 
 
 @asynccontextmanager
@@ -34,8 +33,6 @@ async def lifespan(_app: FastAPI):
 app = FastAPI(lifespan=lifespan)
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
-
-app.mount("/media", StaticFiles(directory="media"), name="media")
 
 templates = Jinja2Templates(directory="templates")
 
