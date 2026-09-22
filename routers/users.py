@@ -358,7 +358,7 @@ async def delete_user(
     if not user:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
-            details="User not found",
+            detail="User not found",
         )
 
     old_filename = user.image_file

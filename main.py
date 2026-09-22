@@ -60,7 +60,7 @@ async def home(request: Request, db: Annotated[AsyncSession, Depends(get_db)]):
         request,
         "home.html",
         {"posts": posts, 
-         "title": home,
+         "title": "Home",
          "limit": settings.posts_per_page,
          "has_more": has_more,
         },
